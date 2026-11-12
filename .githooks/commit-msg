@@ -1,0 +1,21 @@
+#!/bin/sh
+# commit-msg hook
+# $1 = file containing the commit message. Only the first line (subject) is checked.
+# Rules: at least 10 characters, and must start with feat:, fix:, docs:, refactor: or chore:
+
+subject=$(head -n 1 "$1")
+length=${#subject}
+
+if [ "$length" -lt 10 ]; then
+  echo "[commit-msg] Blocked: \"$subject\" is only $length characters (need at least 10)."
+  exit 1
+fi
+
+case "$subject" in
+  feat:\ *|fix:\ *|docs:\ *|refactor:\ *|chore:\ *)
+    exit 0 ;;
+  *)
+    echo "[commit-msg] Blocked: \"$subject\""
+    echo "[commit-msg] The message must start with feat:, fix:, docs:, refactor: or chore:"
+    exit 1 ;;
+esac

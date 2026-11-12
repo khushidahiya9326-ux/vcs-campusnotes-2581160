@@ -1,0 +1,26 @@
+#!/bin/sh
+# pre-commit hook
+# Stops the commit if any staged file contains the words TODO or FIXME.
+# It reads the staged copy of each file (git show :file), so only what is
+# actually going into the commit is checked. Hook scripts themselves are skipped.
+
+blocked=0
+files=$(git diff --cached --name-only --diff-filter=ACM)
+
+for f in $files; do
+  case "$f" in
+    .githooks/*) continue ;;
+  esac
+  hits=$(git show ":$f" | grep -nE 'TODO|FIXME')
+  if [ -n "$hits" ]; then
+    echo "[pre-commit] Blocked: $f contains TODO/FIXME"
+    echo "$hits" | sed 's/^/    line /'
+    blocked=1
+  fi
+done
+
+if [ "$blocked" -eq 1 ]; then
+  echo "[pre-commit] Remove the TODO/FIXME lines, then commit again."
+  exit 1
+fi
+exit 0
