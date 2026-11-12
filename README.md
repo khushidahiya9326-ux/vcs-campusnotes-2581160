@@ -10,3 +10,8 @@ Each subject has its own Markdown file, listed below.
 
 ## Author
 Khushi Dahiya (2581160)
+
+## Adding a new subject
+1. Create `notes/<subject>.md` with a `#` heading and short bullet points.
+2. Add a line for it under **Contents** above.
+3. Commit with a Conventional Commit message, e.g. `feat: add <subject> notes`.
