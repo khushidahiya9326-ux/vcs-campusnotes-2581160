@@ -9,3 +9,4 @@
 - 1NF: every column holds a single (atomic) value.
 - 2NF: 1NF and no non-key column depends on only part of a composite key.
 - 3NF: 2NF and no transitive dependency between non-key columns.
+- A foreign key can be NULL if the relationship is optional.
