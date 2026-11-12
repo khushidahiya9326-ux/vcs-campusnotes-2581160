@@ -7,3 +7,6 @@
 ## Time Complexity
 - Array access by index is O(1).
 - Linear search is O(n); binary search on a sorted array is O(log n).
+
+## Recursion
+- Every recursive function needs a base case that stops the recursion.
